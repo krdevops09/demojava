@@ -21,6 +21,15 @@
         <artifactId>spring-boot-maven-plugin</artifactId>
       </plugin>
     </plugins>
+                <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version> <!-- Use a recent version of the plugin -->
+                <configuration>
+                    <source>17</source> <!-- Or 7, 9, 11, etc. -->
+                    <target>17</target> <!-- Or 7, 9, 11, etc. -->
+                </configuration>
+            </plugin>
   </build>
 </project>
 
