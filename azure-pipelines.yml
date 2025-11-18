@@ -11,13 +11,22 @@ variables:
   dockerfilePath: 'Dockerfile'
   manifestsPath: 'k8s'
 
+resources:
+  repositories:
+    - repository: githubRepo
+      type: github
+      name: Venkat-Expleo/demojava   # 👈 change this
+      endpoint: github-pat    
+
+
+
 stages:
 - stage: Build
   jobs:
   - job: Build
     steps:
-    - checkout: self
-      endpoint: github-pat     # 👈 Add your GitHub service connection here
+    # - checkout: https://github.com/krdevops09/demojava.git
+    #   endpoint: github-pat     # 👈 Add your GitHub service connection here
 
     - task: Maven@3
       inputs:
