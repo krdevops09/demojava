@@ -7,7 +7,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  imageRepository: 'myregistry.azurecr.io/demojava'
+  imageRepository: 'venkat7624/demo-java-app/demojava'
   dockerfilePath: 'Dockerfile'
   manifestsPath: 'k8s' 
 
