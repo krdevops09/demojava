@@ -7,7 +7,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  imageRepository: 'venkat7624/demo-java-app/demojava'
+  imageRepository: 'venkat7624/demojava'
   dockerfilePath: 'Dockerfile'
   manifestsPath: 'k8s' 
 
@@ -31,14 +31,14 @@ stages:
         tags: |
           $(Build.BuildId)
 
-- stage: Deploy
-  dependsOn: Build
-  jobs:
-  - job: Deploy
-    steps:
-    - task: KubernetesManifest@1
-      inputs:
-        action: deploy
-        manifests: $(manifestsPath)/*.yaml
-        containers: |
-          $(imageRepository):$(Build.BuildId)
+# - stage: Deploy
+#   dependsOn: Build
+#   jobs:
+#   - job: Deploy
+#     steps:
+#     - task: KubernetesManifest@1
+#       inputs:
+#         action: deploy
+#         manifests: $(manifestsPath)/*.yaml
+#         containers: |
+#           $(imageRepository):$(Build.BuildId)
