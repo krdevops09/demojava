@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: demojava
-        image: myregistry.azurecr.io/demojava:latest
+        image:venkat7624/demo-java-app/demojava:latest
         ports:
         - containerPort: 8080
 
