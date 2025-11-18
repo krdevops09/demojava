@@ -25,11 +25,11 @@ stages:
 
     - task: Docker@2
       inputs:
-        command: buildAndPush
-        repository: $(imageRepository)
-        dockerfile: $(dockerfilePath)
-        tags: |
-          $(Build.BuildId)
+        containerRegistry: 'demoapp-java'
+        repository: '$(imageRepository)'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        tags: '$(Build.BuildId)'
 
 # - stage: Deploy
 #   dependsOn: Build
