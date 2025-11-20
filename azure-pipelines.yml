@@ -31,16 +31,30 @@ stages:
         Dockerfile: '**/Dockerfile'
         tags: '$(Build.BuildId)'
 
-- stage: Deploy
-  dependsOn: Build
-  jobs:
-  - job: Deploy
-    steps:
-    - task: KubernetesManifest@1
-      inputs:
-        action: deploy
-        kubernetesServiceConnection: 'Kubernetes-Service-Connection'
-        manifests: '$(manifestsPath)/*.yaml'
-        containers: |
-          $(imageRepository):$(Build.BuildId)
+    - script: |
+        echo "Pulling image: $(imageRepository):$(Build.BuildId)"
+        docker pull $(imageRepository):$(Build.BuildId)
+
+        echo "Running container on port 8080..."
+        docker run -d -p 8080:8080 $(imageRepository):$(Build.BuildId)
+      displayName: "Pull & Run Docker Image"
+
+
+    # - task: Docker@2
+    #   inputs:
+    #     containerRegistry: 'demoapp-java'
+    #     command: 'start'
+
+# - stage: Deploy
+#   dependsOn: Build
+#   jobs:
+#   - job: Deploy
+#     steps:
+#     - task: KubernetesManifest@1
+#       inputs:
+#         action: deploy
+#         kubernetesServiceConnection: 'Kubernetes-Service-Connection'
+#         manifests: '$(manifestsPath)/*.yaml'
+#         containers: |
+#           $(imageRepository):$(Build.BuildId)
 
