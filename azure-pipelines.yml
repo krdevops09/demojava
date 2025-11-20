@@ -35,13 +35,46 @@ stages:
         Dockerfile: '**/Dockerfile'
         tags: '$(Build.BuildId)'
 
+- stage: Deploy
+  displayName: "Deploy Docker Container"
+  dependsOn: Build
+  jobs:
+  - job: DeployJob
+    displayName: "Pull, Cleanup & Run Docker Container"
+    steps:
     - script: |
+        PORT=8080
+
+        echo "Checking if port $PORT is in use..."
+        PID=$(lsof -t -i :$PORT)
+
+        if [ -n "$PID" ]; then
+          echo "Port $PORT is in use by PID: $PID"
+          echo "Killing process $PID..."
+          kill -9 $PID
+          echo "Process killed."
+        else
+          echo "Port $PORT is free."
+        fi
+
         echo "Pulling image: $(imageRepository):$(Build.BuildId)"
         docker pull $(imageRepository):$(Build.BuildId)
 
+        echo "Stopping existing Docker container (if exists)..."
+        docker ps -aq --filter "name=demo-java" | xargs -r docker stop | xargs -r docker rm
+
         echo "Running container on port 8080..."
         docker run -d -p 8080:8080 --name demo-java $(imageRepository):$(Build.BuildId)
-      displayName: "Pull & Run Docker Image"
+
+      displayName: "Pull, Cleanup & Run Docker Image"     
+
+    # - script: |
+    #     echo "Pulling image: $(imageRepository):$(Build.BuildId)"
+    #     docker pull $(imageRepository):$(Build.BuildId)
+
+    #     echo "Running container on port 8080..."
+    #     docker run -d -p 8080:8080 --name demo-java $(imageRepository):$(Build.BuildId)
+    #   displayName: "Pull & Run Docker Image"
 
 
     # - task: Docker@2
