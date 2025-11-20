@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: demojava
-        image:venkat7624/demojava:latest
+        image: venkat7624/demojava:latest
         ports:
         - containerPort: 8080
 
