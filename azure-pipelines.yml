@@ -12,7 +12,7 @@ variables:
   manifestsPath: 'k8s' 
 
 stages:
-- stage: Build & Deploy
+- stage: Build_and_Deploy
   jobs:
   - job: Build
     steps:
