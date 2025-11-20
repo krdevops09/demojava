@@ -5,12 +5,11 @@ trigger:
 
 # pool:
 #   vmImage: 'ubuntu-latest'
-
-pool:
-  name: 'Demo-Agent'
-  demands:
-  - agent.os -equals demo-agent 
-
+pool: 
+   name: Demo-Agent
+   demands:
+    - agent.name -equals demo-agent
+    
 variables:
   imageRepository: 'venkat7624/demojava'
   dockerfilePath: 'Dockerfile'
