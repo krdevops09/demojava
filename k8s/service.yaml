@@ -3,10 +3,13 @@ kind: Service
 metadata:
   name: demojava
 spec:
-  type: ClusterIP
+  type: NodePort
   selector:
     app: demojava
   ports:
-    - port: 8080
+    - name: http
+      protocol: TCP
+      port: 80
       targetPort: 8080
+      nodePort: 32333 
 
