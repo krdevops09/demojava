@@ -40,7 +40,7 @@ stages:
         docker pull $(imageRepository):$(Build.BuildId)
 
         echo "Running container on port 8080..."
-        docker run -d -p 8080:8080 $(imageRepository):$(Build.BuildId)
+        docker run -d -p 8080:8080 --name demo-java $(imageRepository):$(Build.BuildId)
       displayName: "Pull & Run Docker Image"
 
 
